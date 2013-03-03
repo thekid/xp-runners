@@ -9,10 +9,10 @@ namespace Net.XpFramework.Runner
         static void Main(string[] args)
         {
             string[] argv;
-            string tool = "";
-            int shift = 0;
-            var includes = new List<string>();
-            includes.Add(".");
+            var tool = "";
+            var aspect = "";
+            var shift = 0;
+            var includes = new List<string>(new string[] { "." });
             
             if (0 == args.Length) 
             {
@@ -21,7 +21,7 @@ namespace Net.XpFramework.Runner
             } 
             else 
             {
-                for (var i = 0; i < args.Length ; i++) 
+                for (var i = 0; i < args.Length; i++) 
                 {
                     switch (args[i])
                     {
@@ -55,6 +55,11 @@ namespace Net.XpFramework.Runner
                             shift += 2;
                             break;
 
+                        case "-a":
+                            aspect = args[++i] + ":";
+                            shift += 2;
+                            break;
+
                         default:
                             if (args[i].StartsWith("-"))
                             {
@@ -75,7 +80,7 @@ namespace Net.XpFramework.Runner
             }
 
             // Execute
-            Execute("class", tool, includes.ToArray(), argv);
+            Execute("class", aspect + tool, includes.ToArray(), argv);
         }
     }
 }
